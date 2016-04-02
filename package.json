@@ -8,5 +8,18 @@
   },
   "keywords": [],
   "author": "Luis Chapman",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "~6.3.5",
+    "file-loader": "~0.8.5",
+    "jade": "~1.11.0",
+    "jade-loader": "~0.8.0",
+    "css-loader": "~0.23.1",
+    "jade-html-loader": "0.0.3",
+    "node-sass": "~3.4.2",
+    "postcss-loader": "~0.8.2",
+    "sass-loader": "~3.2.0",
+    "style-loader": "~0.13.0",
+    "webpack": "~1.12.14"
+  }
 }
