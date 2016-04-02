@@ -11,15 +11,23 @@
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "~6.3.5",
+    "bootstrap-loader": "~1.0.10",
+    "bootstrap-sass": "~3.3.6",
+    "css-loader": "~0.23.1",
     "file-loader": "~0.8.5",
     "jade": "~1.11.0",
-    "jade-loader": "~0.8.0",
-    "css-loader": "~0.23.1",
     "jade-html-loader": "0.0.3",
+    "jade-loader": "~0.8.0",
+    "jquery": "~2.2.2",
     "node-sass": "~3.4.2",
     "postcss-loader": "~0.8.2",
+    "resolve-url-loader": "~1.4.3",
     "sass-loader": "~3.2.0",
-    "style-loader": "~0.13.0",
+    "style-loader": "~0.13.1",
+    "url-loader": "~0.5.7",
     "webpack": "~1.12.14"
+  },
+  "dependencies": {
+    "electron": "~0.4.1"
   }
 }
