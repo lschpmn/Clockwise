@@ -4,7 +4,16 @@ html
     meta(charset='UTF-8', name='viewport', content='width=device-width, initial-scale=1')
     title ClockWise
 
-  body
-    h1 Hello World
+  body.container-fluid
+    header.col-xs-12
+      .menu-item
+        .glyphicon.glyphicon-pause
+        
+      .menu-item
+        .glyphicon.glyphicon-repeat
+          
+    main.col-xs-12
+      input(placeholder="0:00")
+      
     
     script(src='dep.js')
