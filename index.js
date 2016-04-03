@@ -22,12 +22,17 @@ app.on('window-all-closed', function() {
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
   const indexPath = path.join(__dirname, 'public/index.html');
+  const host = process.env.host;
   
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow = new BrowserWindow({
+    width: 450,
+    height: 100,
+    useContentSize: true
+  });
   
   // and load the index.html of the app.
-  mainWindow.loadURL(`file://${indexPath}`);
+  mainWindow.loadURL(host == null ? indexPath : host);
   
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
