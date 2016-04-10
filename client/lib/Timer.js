@@ -43,7 +43,12 @@ class Timer extends EventEmitter {
   reset() {
     this.stop();
     this.duration = this.startingDuration;
+    this.emit('tick', this.toString());
   };
+  
+  get running() {
+    return this.startTime != null;
+  }
   
   toString() {
     let seconds = 0;
@@ -54,7 +59,8 @@ class Timer extends EventEmitter {
     let hour = minute * 60;
     let days = 0;
     let day = hour * 24;
-    let startDuration = this.duration - (Date.now() - this.startTime);
+    //if not running, grab duration, else grab remaining duration since started
+    let startDuration = !this.running ? this.duration : this.duration - (Date.now() - this.startTime);
     let currDuration = startDuration;
     let secondString, minuteString, hourString, dayString;
     
@@ -100,6 +106,8 @@ class Timer extends EventEmitter {
         this.emit('tick', this.toString()); //send heartbeat
         const timeLeft = this.duration - (Date.now() - this.startTime);
         let milliseconds = timeLeft % 1000;
+        
+        if(timeLeft < 0) return this.stop();
         
         this._loop(milliseconds + 100);//add a hundred milliseconds to avoid race conditions
       })
