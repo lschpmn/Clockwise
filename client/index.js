@@ -9,7 +9,6 @@ require('./index.scss');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const Timer = require('./lib/Timer');
-
 const PlayPause = require('./components/PlayPause.jsx');
 const Reset = require('./components/Reset.jsx');
 const TimerInput = require('./components/TimerInput.jsx');
