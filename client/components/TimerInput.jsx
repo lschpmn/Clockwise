@@ -20,6 +20,7 @@ class TimerInput extends React.Component {
     
     if(event.key === 'Enter') {
       timer.setTime(event.target.value);
+      timer.start();
       this.setState({val: ''});
     }
   }
