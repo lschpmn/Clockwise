@@ -38,7 +38,7 @@ class Timer extends EventEmitter {
     this.startTime = null;
   };
   
-  reset = function() {
+  reset() {
     this.duration = this.startingDuration;
     this.stop();
   };
@@ -84,7 +84,7 @@ class Timer extends EventEmitter {
     return dayString + hourString + minuteString + secondString;
   };
   
-  valueOf = function() {
+  valueOf() {
     return this.duration - (Date.now() - this.startTime);
   };
   
