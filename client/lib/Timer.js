@@ -27,6 +27,7 @@ class Timer extends EventEmitter {
     
     this.startTime = Date.now();
     this._loop(0);
+    this.emit('running', true);
     return true;
   };
   
@@ -36,11 +37,12 @@ class Timer extends EventEmitter {
     this.heartbeat.cancel();
     this.duration = this.duration - (Date.now() - this.startTime);
     this.startTime = null;
+    this.emit('running', false);
   };
   
   reset() {
-    this.duration = this.startingDuration;
     this.stop();
+    this.duration = this.startingDuration;
   };
   
   toString() {
