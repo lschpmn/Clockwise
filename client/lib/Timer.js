@@ -16,6 +16,7 @@ class Timer extends EventEmitter {
   setTime(time) {
     this.duration = this.startingDuration = parse(time);
     if(this.startTime) this.startTime = Date.now();//if running, reset startTime to now
+    this.emit('tick', this.toString());
   };
   
   /**
