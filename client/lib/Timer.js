@@ -3,7 +3,7 @@
 const EventEmitter = require('events');
 const parse = require('parse-duration');
 const bluebird = /**@type {Promise}*/ require('bluebird');
-bluebird.config({cancellation: true});
+bluebird.config({cancellation: true, warnings: false});
 
 class Timer extends EventEmitter {
   constructor() {
@@ -97,9 +97,9 @@ class Timer extends EventEmitter {
       .then(() => {
         this.emit('tick', this.toString()); //send heartbeat
         const timeLeft = this.duration - (Date.now() - this.startTime);
-        const milliseconds = timeLeft % 1000;
+        let milliseconds = timeLeft % 1000;
         
-        this._loop(milliseconds || 1000);
+        this._loop(milliseconds + 100);//add a hundred milliseconds to avoid race conditions
       })
       .catch(err => console.log(err.stack));
   }
