@@ -108,7 +108,10 @@ class Timer extends EventEmitter {
         const timeLeft = this.duration - (Date.now() - this.startTime);
         let milliseconds = timeLeft % 1000;
         
-        if(timeLeft < 0) return this.stop();
+        if(timeLeft < 0) {
+          this.emit('end');
+          return this.stop();
+        }
         
         this._loop(milliseconds + 100);//add a hundred milliseconds to avoid race conditions
       })
