@@ -5,6 +5,7 @@ require('bootstrap-loader');
 require('./index.jade');
 require('./index.scss');
 require('./sounds/tone.mp3');
+require('bootstrap-material-design/dist/bootstrap-material-design.min.css');
 
 //components
 const React = require('react');

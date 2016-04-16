@@ -4,7 +4,7 @@ html, body {
 }
 
 header {
-  display: flex;
+  display: flex !important;
   
   .menu-item {
     margin: 0 auto;
