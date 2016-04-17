@@ -15,7 +15,7 @@ module.exports = {
       {test: /\.css$/, loader: 'style!css!postcss-loader'},
       {test: /\.scss$/, loader: `style!css!postcss-loader!sass`},
       {test: /\.jade$/, loader:'file?name=[name].html!jade-html?pretty'},
-      {test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.eot$|\.woff2$|\.mp3$/, loader: 'file?name=[name].[ext]'},
+      {test: /\.jpe?g$|\.gif$|\.png$|\.svg.*|\.woff.*|\.ttf.*|\.eot.*|\.woff2.*|\.mp3$/, loader: 'file?name=[name].[ext]'},
       {test: /\.jsx?$/, exclude: /node_modules/, loader: "babel?presets[]=react,presets[]=es2015"}
     ]
   },

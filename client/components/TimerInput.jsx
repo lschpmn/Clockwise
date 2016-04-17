@@ -9,10 +9,19 @@ class TimerInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {timeString: '', val: ''};
+    this.props = props;
     this.submit = this.submit.bind(this);
     this.change = this.change.bind(this);
     
-    props.timer.on('tick', time => this.setState({timeString: time}));
+    props.timer.on('tick', time => this.changeTime(time));
+  }
+  
+  /**
+   * @param time
+   */
+  changeTime(time) {
+    if(this.props.timer.remainingTime < 0) this.setState({timeString: ''});
+    else this.setState({timeString: time})
   }
   
   submit(event) {
@@ -30,7 +39,17 @@ class TimerInput extends React.Component {
   }
   
   render() {
-    return <input placeholder={this.state.timeString} value={this.state.val} onChange={this.change} onKeyPress={this.submit} />
+    return <div className="form-group">
+      <input
+        id="timerInput"
+        value={this.state.val}
+        onChange={this.change}
+        onKeyPress={this.submit}
+        className="form-control"
+        type="text"
+      />
+      <div className="control-label" htmlFor="timerInput">{this.state.timeString}</div>
+    </div>;
   }
 }
 

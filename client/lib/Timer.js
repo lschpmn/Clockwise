@@ -51,7 +51,14 @@ class Timer extends EventEmitter {
     return this.startTime != null;
   }
   
+  get remainingTime() {
+    if(!this.running) return 0;
+    
+    return this.duration - (Date.now() - this.startTime);
+  }
+  
   toString() {
+    if(isNaN(this.duration)) return '';
     let seconds = 0;
     let second = 1000;
     let minutes = 0;
