@@ -16,7 +16,9 @@ class Reset extends React.Component {
   }
   
   render() {
-    return <div className="glyphicon glyphicon-repeat" onClick={this.clicked}></div>
+    return <div className='waves-effect waves-light btn-flat' onClick={this.clicked}>
+      <i className="material-icons">replay</i>
+    </div>
   }
 }
 

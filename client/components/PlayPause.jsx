@@ -23,9 +23,9 @@ class PlayPause extends React.Component {
   }
   
   render() {
-    const icon = this.state.play ? 'glyphicon-pause' : 'glyphicon-play';
-    
-    return <div className={`glyphicon ${icon}`} onClick={this.clicked}></div>;
+    return <div className='waves-effect waves-light btn-flat' onClick={this.clicked}>
+      <i className='material-icons'>{this.state.play ? 'pause' : 'play_arrow'}</i>
+    </div>;
   }
 }
 

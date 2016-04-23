@@ -1,17 +1,15 @@
 'use strict';
 
 global.jQuery = global.$ = require('jquery');
-require('bootstrap-loader');
 require('./index.jade');
 require('./index.scss');
 require('./sounds/tone.mp3');
-require('bootstrap-material-design/dist/css/material.min.css');
-require('bootstrap-material-design/dist/css/material-fullpalette.min.css');
-require('bootstrap-material-design/dist/css/ripples.min.css');
-require('bootstrap-material-design/dist/css/roboto.min.css');
-require('bootstrap-material-design/dist/js/material.js');
-require('bootstrap-material-design/dist/js/ripples.js');
-$.material.init();
+
+//Materialize css
+require('materialize-css/dist/font/material-design-icons/Material-Design-Icons.woff2');
+require('materialize-css/dist/css/materialize.min.css');
+require('materialize-css/dist/js/materialize.min.js');
+
 
 //components
 const React = require('react');

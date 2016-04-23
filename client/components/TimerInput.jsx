@@ -39,16 +39,16 @@ class TimerInput extends React.Component {
   }
   
   render() {
-    return <div className="form-group">
+    return <div className='input-field label-floating container'>
       <input
-        id="timerInput"
+        id='timerInput'
         value={this.state.val}
         onChange={this.change}
         onKeyPress={this.submit}
-        className="form-control"
-        type="text"
+        className='col s10 offset-s1'
+        type='text'
       />
-      <div className="control-label" htmlFor="timerInput">{this.state.timeString}</div>
+      <label className='control-label' htmlFor='timerInput'>{this.state.timeString}</label>
     </div>;
   }
 }
