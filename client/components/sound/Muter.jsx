@@ -1,7 +1,9 @@
 'use strict';
 
 const React = require('react');
+const ReactDOM = require('react-dom');
 const NotificationSound = require('./NotificationSound.jsx');
+const AlarmPopup = require('./AlarmPopup.jsx');
 
 class Muter extends React.Component {
   /**
@@ -17,6 +19,11 @@ class Muter extends React.Component {
   
   componentDidMount() {
     this.props.timer.on('end', () => this.toggleRing(true));
+    this.updateAlarmPopup(false);
+  }
+  
+  componentWillUpdate(nextProp, nextState) {
+    this.updateAlarmPopup(nextState.ring);
   }
   
   clicked() {
@@ -30,11 +37,14 @@ class Muter extends React.Component {
     this.setState({ring: isRinging});
   }
   
+  updateAlarmPopup(show) {
+    ReactDOM.render(<AlarmPopup show={show} toggleRing={this.toggleRing}/>, document.getElementById('alarmPopup'));
+  }
+  
   render() {
     return <div className='btn-flat waves-effect waves-light' onClick={this.clicked}>
       <i className="material-icons">{this.state.muted ? 'volume_mute' : 'volume_up'}</i>
       <NotificationSound soundUrl={this.props.soundUrl} ring={this.state.ring && !this.state.muted} />
-      <div className={this.state.ring ? 'soundOverlay' : ''} onClick={() => this.toggleRing(false)}></div>
     </div>
   }
 }

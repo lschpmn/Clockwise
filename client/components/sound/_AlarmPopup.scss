@@ -1,0 +1,14 @@
+div.card-panel {
+  position: fixed;
+  top: 5%;
+  left: 5%;
+  height: 90%;
+  width: 90% !important;
+  margin: 0;
+  color: black;
+  z-index: 10;
+}
+
+.card-panel:focus {
+  outline: none;
+}

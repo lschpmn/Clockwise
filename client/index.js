@@ -18,7 +18,7 @@ const Timer = require('./lib/Timer');
 const PlayPause = require('./components/PlayPause.jsx');
 const Reset = require('./components/Reset.jsx');
 const TimerInput = require('./components/TimerInput.jsx');
-const Muter = require('./components/Muter.jsx');
+const Muter = require('./components/sound/Muter.jsx');
 
 const timer = new Timer();
 

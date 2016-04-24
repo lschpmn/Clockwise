@@ -8,7 +8,8 @@ class TimerInput extends React.Component {
    */
   constructor(props) {
     super(props);
-    this.state = {timeString: '', val: ''};
+    const rand = () => Math.random().toString(35).slice(-10);
+    this.state = {timeString: '', val: '', inputId: rand(), labelId: rand()};
     this.props = props;
     this.submit = this.submit.bind(this);
     this.change = this.change.bind(this);
@@ -33,23 +34,27 @@ class TimerInput extends React.Component {
     timer.setTime(event.target.value);
     timer.start();
     this.setState({val: ''});
+    
+    //dom changes
+    document.getElementById(this.state.inputId).blur();
+    document.getElementById(this.state.labelId).classList.remove('active');
   }
   
   change(event) {
-    this.setState({val: event.target.value})
+    this.setState({val: event.target.value});
   }
   
   render() {
     return <div className='input-field label-floating container'>
       <input
-        id='timerInput'
+        id={this.state.inputId}
         value={this.state.val}
         onChange={this.change}
         onKeyPress={this.submit}
         className='col s10 offset-s1'
         type='text'
       />
-      <label className='control-label' htmlFor='timerInput'>{this.state.timeString}</label>
+      <label id={this.state.labelId} className='control-label' htmlFor='timerInput'>{this.state.timeString}</label>
     </div>;
   }
 }
