@@ -10,9 +10,15 @@ class PlayPause extends React.Component {
   constructor(props) {
     super(props);
     this.state = {play: false};
+    this.props = props;
     this.clicked = this.clicked.bind(this);
     
-    props.timer.on('running', isRunning => this.setState({play: isRunning}));
+    const playState = (play) => this.setState({play: play});
+    const timer = props.timer;
+    
+    timer.on('started', () => playState(true));
+    timer.on('stopped', () => playState(false));
+    timer.on('end', () => playState(false));
   }
   
   clicked() {

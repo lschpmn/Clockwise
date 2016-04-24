@@ -3,126 +3,104 @@
 const EventEmitter = require('events');
 const parse = require('parse-duration');
 const bluebird = /**@type {Promise}*/ require('bluebird');
+
 bluebird.config({cancellation: true, warnings: false});
+const SECOND = 1;
+const MINUTE = SECOND * 60;
+const HOUR = MINUTE*60;
+const DAY = HOUR*24;
 
 class Timer extends EventEmitter {
-  constructor() {
-    super();
+  /**
+   * @returns {boolean}
+   */
+  get isRunning() {
+    return this.lastTick != null;
+  }
+  
+  reset() {
+    this.stop();
+    this.timeLeft = this.startingTime;
   }
   
   /**
    * @param {String} time
    */
   setTime(time) {
-    this.duration = this.startingDuration = parse(time);
-    if(this.startTime) this.startTime = Date.now();//if running, reset startTime to now
-    this.emit('tick', this.toString());
+    this.timeLeft = this.startingTime = parse(time);
+    if(this.isRunning) this.stop();
   };
   
-  /**
-   * Attempts to start timer
-   * @returns {boolean} true if successfully started timer, otherwise false
-   */
   start() {
-    if(!this.duration) return false;
-    
-    this.startTime = Date.now();
-    this._loop(0);
-    this.emit('running', true);
-    return true;
-  };
-  
-  stop() {
-    if(!this.startTime) return;
-    
-    this.heartbeat.cancel();
-    this.duration = this.duration - (Date.now() - this.startTime);
-    this.startTime = null;
-    this.emit('running', false);
-  };
-  
-  reset() {
-    this.stop();
-    this.duration = this.startingDuration;
-    this.emit('tick', this.toString());
-  };
-  
-  get running() {
-    return this.startTime != null;
+    if(this.isRunning || !this.timeLeft) return;
+    this.lastTick = Date.now();
+    this._loop();
+    this.emit('started');
   }
   
-  get remainingTime() {
-    if(!this.running) return 0;
-    
-    return this.duration - (Date.now() - this.startTime);
+  stop() {
+    if(this._promise) this._promise.cancel();
+    this.timeLeft -= Date.now() - this.lastTick;
+    this.lastTick = null;
+    this.emit('stopped');
   }
   
   toString() {
-    if(isNaN(this.duration)) return '';
-    let seconds = 0;
-    let second = 1000;
-    let minutes = 0;
-    let minute = second * 60;
-    let hours = 0;
-    let hour = minute * 60;
-    let days = 0;
-    let day = hour * 24;
-    //if not running, grab duration, else grab remaining duration since started
-    let startDuration = !this.running ? this.duration : this.duration - (Date.now() - this.startTime);
-    let currDuration = startDuration;
-    let secondString, minuteString, hourString, dayString;
+    if(!this.timeLeft) return '';
+    let secondStr, minuteStr, hourStr, dayStr;
+    let seconds = 0, minutes = 0, hours = 0, days = 0;
+    const timeStart = Math.ceil(this.timeLeft / 1000);
+    let timeLeft = timeStart;
     
-    while(currDuration >= day) {
+    while(timeLeft >= DAY) {
       days++;
-      currDuration -= day;
+      timeLeft -= DAY;
     }
     
-    while(currDuration >= hour) {
+    while(timeLeft >= HOUR) {
       hours++;
-      currDuration -= hour;
+      timeLeft -= HOUR;
     }
     
-    while(currDuration >= minute) {
+    while(timeLeft >= MINUTE) {
       minutes++;
-      currDuration -= minute;
+      timeLeft -= MINUTE;
     }
     
-    while(currDuration >= second) {
+    while(timeLeft >= SECOND) {
       seconds++;
-      currDuration -= second;
+      timeLeft -= SECOND;
     }
     
-    dayString = startDuration < day ? '' : `${days} days `;
-    hourString = startDuration < hour ? '' : `${hours} hours `;
-    minuteString = startDuration < minute ? '' : `${minutes} minutes `;
-    secondString = `${seconds} seconds`;
+    dayStr = timeStart < DAY ? '' : `${days} days `;
+    hourStr = timeStart < HOUR ? '' : `${hours} hours `;
+    minuteStr = timeStart < MINUTE ? '' : `${minutes} minutes `;
+    secondStr = `${seconds} seconds`;
     
-    return dayString + hourString + minuteString + secondString;
-  };
+    return dayStr + hourStr + minuteStr + secondStr;
+  }
   
   valueOf() {
-    return this.duration - (Date.now() - this.startTime);
-  };
+    return this.timeLeft;
+  }
   
   /**
-   * @param {Number} wait
    * @private
    */
-  _loop(wait) {
-    this.heartbeat = bluebird.delay(wait)
-      .then(() => {
-        this.emit('tick', this.toString()); //send heartbeat
-        const timeLeft = this.duration - (Date.now() - this.startTime);
-        let milliseconds = timeLeft % 1000;
-        
-        if(timeLeft < 0) {
-          this.emit('end');
-          return this.stop();
-        }
-        
-        this._loop(milliseconds + 100);//add a hundred milliseconds to avoid race conditions
-      })
-      .catch(err => console.log(err.stack));
+  _loop() {
+    this.timeLeft -= Date.now() - this.lastTick;
+    this.emit('tick');
+    
+    if(this.timeLeft <= 0) {
+      this.emit('end');
+      this.lastTick = null;
+    } else {
+      //'|| 1000' so when time difference is 0, it will still wait a full second 
+      const delayTime = (this.timeLeft % 1000 || 1000) + 50;
+      
+      this.lastTick = Date.now();
+      this._promise = /**@type {Promise}*/ bluebird.delay(delayTime).then(() => this._loop());
+    }
   }
 }
 

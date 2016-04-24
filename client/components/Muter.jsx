@@ -31,9 +31,7 @@ class Muter extends React.Component {
   }
   
   render() {
-    const muted = this.state.muted;
-    
-    return <div className='btn-flat waves-effect waves-light' onClick={this.state.ring ? null : this.clicked}>
+    return <div className='btn-flat waves-effect waves-light' onClick={this.clicked}>
       <i className="material-icons">{this.state.muted ? 'volume_mute' : 'volume_up'}</i>
       <NotificationSound soundUrl={this.props.soundUrl} ring={this.state.ring && !this.state.muted} />
       <div className={this.state.ring ? 'soundOverlay' : ''} onClick={() => this.toggleRing(false)}></div>

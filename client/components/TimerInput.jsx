@@ -13,25 +13,26 @@ class TimerInput extends React.Component {
     this.submit = this.submit.bind(this);
     this.change = this.change.bind(this);
     
-    props.timer.on('tick', time => this.changeTime(time));
+    const timer = props.timer;
+    
+    timer.on('tick', () => this.changeTime(timer.toString()));
   }
   
   /**
-   * @param time
+   * @param {String} time
    */
   changeTime(time) {
-    if(this.props.timer.remainingTime < 0) this.setState({timeString: ''});
+    if(this.props.timer < 0) this.setState({timeString: ''});
     else this.setState({timeString: time})
   }
   
   submit(event) {
+    if(event.key !== 'Enter') return;
     const timer = this.props.timer;
-    
-    if(event.key === 'Enter') {
-      timer.setTime(event.target.value);
-      timer.start();
-      this.setState({val: ''});
-    }
+  
+    timer.setTime(event.target.value);
+    timer.start();
+    this.setState({val: ''});
   }
   
   change(event) {
