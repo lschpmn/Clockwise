@@ -1,0 +1,19 @@
+.upper {
+  color: black;
+  
+  .nav-wrapper {
+    height: 100%;
+    
+    button {
+      height: 100%;
+    }
+    
+    button:focus {
+      background-color: inherit;
+    }
+    
+    button.waves-red {
+      color: #f44336 ;
+    }
+  }
+}

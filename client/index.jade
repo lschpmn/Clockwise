@@ -5,12 +5,21 @@ html
     title ClockWise
 
   body(style='-webkit-app-region: drag;').blue
-    header.row
-      #playPause.menu-item.col.s4
-        
-      #reset.menu-item.col.s4
-        
-      #muter.menu-item.col.s4
+    header
+      .upper.grey.lighten-5
+        .nav-wrapper
+          button.btn-flat.waves-effect.waves-red.right
+            | close
+            
+          button.btn-flat.waves-effect.right
+            | minimize
+              
+      .lower.row
+        #playPause.menu-item.col.s4
+          
+        #reset.menu-item.col.s4
+          
+        #muter.menu-item.col.s4
           
     main
       #timerInput
