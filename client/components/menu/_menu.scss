@@ -3,9 +3,11 @@
   
   .nav-wrapper {
     height: 100%;
+    -webkit-app-region: drag;
     
     button {
       height: 100%;
+      -webkit-app-region: no-drag;
     }
     
     button:focus {

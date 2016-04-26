@@ -4,6 +4,7 @@ const path = require('path');
 const electron = require('electron');
 const app = electron.app;  // Module to control application life.
 const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
+const ipcMain = electron.ipcMain;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -28,7 +29,10 @@ app.on('ready', function() {
   mainWindow = new BrowserWindow({
     width: 460,
     height: 120,
-    useContentSize: true
+    useContentSize: true,
+    resizable: false,
+    fullscreenable: false,
+    frame: false
   });
   
   // and load the index.html of the app.
@@ -44,4 +48,6 @@ app.on('ready', function() {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
+  
+  ipcMain.on('close', () => mainWindow.close());
 });
