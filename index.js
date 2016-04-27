@@ -1,10 +1,10 @@
 'use strict';
 
+const http = require('http');
 const path = require('path');
 const electron = require('electron');
 const app = electron.app;  // Module to control application life.
 const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
-const ipcMain = electron.ipcMain;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -49,5 +49,20 @@ app.on('ready', function() {
     mainWindow = null;
   });
   
-  ipcMain.on('close', () => mainWindow.close());
+  //server listening to front-end
+  const server = http.createServer();
+  server.listen(5000);
+  
+  server.on('request', (req, res) => {
+    if(req.url === '/close') {
+      process.exit(0);
+    }
+    
+    if(req.url === '/minimize') {
+      mainWindow.minimize();
+    }
+    
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.end();
+  });
 });

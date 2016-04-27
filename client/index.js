@@ -10,6 +10,8 @@ require('materialize-css/dist/font/material-design-icons/Material-Design-Icons.w
 require('materialize-css/dist/css/materialize.min.css');
 require('materialize-css/dist/js/materialize.min.js');
 
+//menu controller
+require('./components/menu');
 
 //components
 const React = require('react');
