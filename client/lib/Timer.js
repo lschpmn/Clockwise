@@ -21,6 +21,7 @@ class Timer extends EventEmitter {
   reset() {
     this.stop();
     this.timeLeft = this.startingTime;
+    this.emit('tick');
   }
   
   /**
