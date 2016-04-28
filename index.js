@@ -50,6 +50,7 @@ app.on('ready', function() {
   });
   
   //server listening to front-end
+  //using this, instead of built in electron way because of issues with webpack+electron
   const server = http.createServer();
   server.listen(5000);
   
@@ -60,6 +61,10 @@ app.on('ready', function() {
     
     if(req.url === '/minimize') {
       mainWindow.minimize();
+    }
+    
+    if(req.url === '/alarm') {
+      if(mainWindow.isMinimized()) mainWindow.show();
     }
     
     res.setHeader('Access-Control-Allow-Origin','*');

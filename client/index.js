@@ -28,3 +28,8 @@ ReactDOM.render(<PlayPause timer={timer} />, document.getElementById('playPause'
 ReactDOM.render(<Reset timer={timer} />, document.getElementById('reset'));
 ReactDOM.render(<TimerInput timer={timer} />, document.getElementById('timerInput'));
 ReactDOM.render(<Muter timer={timer} soundUrl="./tone.mp3" />, document.getElementById('muter'));
+
+//notifies electron that the timer went off
+timer.on('end', () => {
+  fetch('http://localhost:5000/alarm');
+});
