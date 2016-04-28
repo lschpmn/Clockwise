@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react');
+const bluebird = /**@type {Promise}*/ require('bluebird');
 
 class AlarmPopup extends React.Component {
   /**
@@ -9,7 +10,16 @@ class AlarmPopup extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
+    this.state = {isGreen: false};
     this.triggered = this.triggered.bind(this);
+  }
+  
+  colorLoop() {
+    if(this.props.show) {
+      this.setState({isGreen: !this.state.isGreen});
+      
+      bluebird.delay(500).then(() => this.colorLoop());
+    }
   }
   
   triggered() {
@@ -22,11 +32,17 @@ class AlarmPopup extends React.Component {
     }
   }
   
+  componentWillReceiveProps(nextProps) {
+    //allows props to be set before calling 'colorLoop'
+    if(nextProps.show) process.nextTick(() => this.colorLoop());
+  }
+  
   render() {
     const s = this.props.show;
+    const g = this.state.isGreen;
     
     return <div 
-      className={`card-panel ${s ? '' : 'hide'} blue lighten-2`} 
+      className={`card-panel ${s ? '' : 'hide'} ${g ? 'green' : 'red'}`} 
       tabIndex="0" onKeyDown={this.triggered} 
       onClick={this.triggered}
     >
