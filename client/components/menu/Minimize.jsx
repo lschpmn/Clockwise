@@ -9,7 +9,7 @@ class Minimize extends React.Component {
   }
   
   render() {
-    return <button className="btn-flat waves-effect right valign-wrapper" onClick={Minimize.clicked}>
+    return <button className="btn-flat waves-effect right valign-wrapper" style={{paddingLeft: '25px'}} onClick={Minimize.clicked}>
       <i className="material-icons valign" style={{height: '100%'}}>-</i>
     </button>;
   }
