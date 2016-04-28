@@ -36,8 +36,10 @@ class TimerInput extends React.Component {
     this.setState({val: ''});
     
     //dom changes
-    document.getElementById(this.state.inputId).blur();
-    document.getElementById(this.state.labelId).classList.remove('active');
+    setTimeout(() => {
+      document.getElementById(this.state.inputId).blur();
+      document.getElementById(this.state.labelId).classList.remove('active');
+    }, 500);
   }
   
   change(event) {
