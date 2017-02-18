@@ -5,19 +5,55 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
   context: path.join(__dirname, 'client'),
+
   entry: './index.js',
+
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'dep.js'
   },
+
   module: {
-    loaders: [
-      {test: /\.css$/, loader: 'style!css!postcss-loader'},
-      {test: /\.scss$/, loader: `style!css!postcss-loader!sass`},
-      {test: /\.jade$/, loader:'file?name=[name].html!jade-html?pretty'},
-      {test: /\.jpe?g$|\.gif$|\.png$|\.svg.*|\.woff.*|\.ttf.*|\.eot.*|\.woff2.*|\.mp3$/, loader: 'file?name=[name].[ext]'},
-      {test: /\.jsx?$/, exclude: /node_modules/, loader: "babel?presets[]=react,presets[]=es2015"}
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.jade$/,
+        use: [
+          'file-loader?name=[name].html',
+          'jade-html-loader?pretty',
+        ],
+      },
+      {
+        test: /\.jpe?g$|\.gif$|\.png$|\.svg.*|\.woff.*|\.ttf.*|\.eot.*|\.woff2.*|\.mp3$/,
+        use: [
+          'file-loader?name=[name].[ext]',
+        ],
+      },
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: [
+          'babel-loader?presets[]=react,presets[]=es2015',
+        ],
+      }
     ]
   },
-  postcss: function() {return [autoprefixer]}
+
+  /*postcss: function () {
+    return [autoprefixer]
+  }*/
 };
