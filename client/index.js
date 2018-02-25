@@ -1,5 +1,13 @@
 'use strict';
 
+import App from './App';
+import React from "react";
+import { render } from 'react-dom';
+
+render(<App />, document.getElementById('app'));
+
+//legacy
+/*
 global.jQuery = global.$ = require('jquery');
 require('./index.jade');
 require('./index.scss');
@@ -33,3 +41,5 @@ ReactDOM.render(<Muter timer={timer} soundUrl="./tone.mp3" />, document.getEleme
 timer.on('end', () => {
   fetch('http://localhost:5000/alarm');
 });
+
+*/
