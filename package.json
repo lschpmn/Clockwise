@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "Luis Chapman",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "autoprefixer": "^8.0.0",
     "babel-core": "^6.23.1",
     "babel-loader": "^7.1.2",
