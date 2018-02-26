@@ -16,22 +16,23 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-        ],
+        use: [ 'style-loader', 'css-loader' ],
       },
       {
         test: /\.html$|\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.eot$|\.woff2$|\.mp3$/,
-        use: [
-          'file-loader?name=[name].[ext]',
-        ],
+        use: [ 'file-loader?name=[name].[ext]' ],
       },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: [
-          'babel-loader?presets[]=react,presets[]=es2015',
+          {
+            loader: 'babel-loader',
+            options: {
+              plugins: [ 'babel-plugin-transform-object-rest-spread' ],
+              presets: [ 'react', 'env' ],
+            },
+          },
         ],
       }
     ]
