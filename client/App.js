@@ -9,7 +9,7 @@ export default class App extends Component {
   render() {
     return <div style={styles.container} >
       <Toolbar id='draggable' style={styles.toolbar}>
-        <ToolbarGroup firstChild={true}>
+        <ToolbarGroup>
           <ToolbarTitle text='Clockwise' style={styles.title}/>
         </ToolbarGroup>
 
