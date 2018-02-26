@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
-import { blue500, white } from 'material-ui/styles/colors'
+import { blue500, red500 } from 'material-ui/styles/colors'
 
 export default class App extends Component {
   render() {
@@ -14,9 +14,9 @@ export default class App extends Component {
         </ToolbarGroup>
 
         <ToolbarGroup lastChild={true}>
-          <FlatButton id='nondrag' >_</FlatButton>
+          <FlatButton id='nondrag' style={{...styles.button, fontSize: 20}}>-</FlatButton>
 
-          <FlatButton id='nondrag' >x</FlatButton>
+          <FlatButton id='nondrag' style={{...styles.button,  color: red500}} rippleColor={red500} >x</FlatButton>
         </ToolbarGroup>
       </Toolbar>
     </div>;
@@ -24,6 +24,12 @@ export default class App extends Component {
 }
 
 const styles = {
+  button: {
+    margin: 0,
+    padding: 0,
+    minWidth: '3rem',
+  },
+
   container: {
     backgroundColor: blue500,
     bottom: 0,
@@ -38,7 +44,7 @@ const styles = {
   },
 
   toolbar: {
-    backgroundColor: white,
+    backgroundColor: 'white',
     color: 'black',
     height: '2rem',
   },
