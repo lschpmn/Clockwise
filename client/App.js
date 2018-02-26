@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 import { blue500, red500 } from 'material-ui/styles/colors'
+import TextField from 'material-ui/TextField';
 
 export default class App extends Component {
   render() {
@@ -19,11 +20,32 @@ export default class App extends Component {
           <FlatButton id='nondrag' style={{...styles.button,  color: red500}} rippleColor={red500} >x</FlatButton>
         </ToolbarGroup>
       </Toolbar>
+
+      <div style={styles.bottom}>
+        <div style={{flex: 1,}} />
+        <TextField
+          floatingLabelStyle={{ color: 'white' }}
+          hintText='Time'
+          inputStyle={{ color: 'white' }}
+          style={styles.input}
+          underlineFocusStyle={{borderColor: 'black'}}
+        />
+      </div>
     </div>;
   }
 }
 
 const styles = {
+  bottom: {
+    bottom: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    left: 0,
+    position: 'fixed',
+    right: 0,
+    top: 0,
+  },
+
   button: {
     margin: 0,
     padding: 0,
@@ -37,6 +59,12 @@ const styles = {
     position: 'fixed',
     right: 0,
     top: 0,
+  },
+
+  input: {
+    display: 'block',
+    margin: '0 auto',
+    width: '80%',
   },
 
   title: {
