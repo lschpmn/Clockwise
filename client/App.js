@@ -8,27 +8,28 @@ import TextField from 'material-ui/TextField';
 
 export default class App extends Component {
   render() {
-    return <div style={styles.container} >
+    return <div style={styles.container}>
       <Toolbar id='draggable' style={styles.toolbar}>
         <ToolbarGroup>
           <ToolbarTitle text='Clockwise' style={styles.title}/>
         </ToolbarGroup>
 
         <ToolbarGroup lastChild={true}>
-          <FlatButton id='nondrag' style={{...styles.button, fontSize: 20}}>-</FlatButton>
+          <FlatButton id='nondrag' style={{ ...styles.button, fontSize: 20 }}>-</FlatButton>
 
-          <FlatButton id='nondrag' style={{...styles.button,  color: red500}} rippleColor={red500} >x</FlatButton>
+          <FlatButton id='nondrag' style={{ ...styles.button, color: red500 }} rippleColor={red500}>x</FlatButton>
         </ToolbarGroup>
       </Toolbar>
 
       <div style={styles.bottom}>
-        <div style={{flex: 1,}} />
+        <div style={{ flex: 1 }}/>
         <TextField
           floatingLabelStyle={{ color: 'white' }}
+          hintStyle={{ color: 'white', opacity: 0.7 }}
           hintText='Time'
           inputStyle={{ color: 'white' }}
           style={styles.input}
-          underlineFocusStyle={{borderColor: 'black'}}
+          underlineFocusStyle={{ borderColor: 'black' }}
         />
       </div>
     </div>;
