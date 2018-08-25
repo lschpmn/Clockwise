@@ -1,12 +1,10 @@
-'use strict';
-
-import React, { Component } from 'react';
+import * as React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 import { blue500, red500 } from 'material-ui/styles/colors'
 import TextField from 'material-ui/TextField';
 
-export default class App extends Component {
+export default class App extends React.Component {
   render() {
     return <div style={styles.container}>
       <Toolbar id='draggable' style={styles.toolbar}>
