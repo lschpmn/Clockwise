@@ -7,6 +7,10 @@ module.exports = {
 
   entry: './index.tsx',
 
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.json'],
+  },
+
   mode: 'development',
 
   output: {
