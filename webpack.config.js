@@ -1,44 +1,33 @@
 'use strict';
 
-const path = require('path');
+const { join } = require('path');
 
 module.exports = {
-  context: path.join(__dirname, 'client'),
+  context: join(__dirname, 'client'),
 
-  entry: './index.js',
+  entry: './index.tsx',
+
+  mode: 'development',
 
   output: {
-    path: path.join(__dirname, 'public'),
+    path: join(__dirname, 'public'),
     filename: 'dep.js'
   },
 
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ],
-      },
-      {
         test: /\.html$|\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.eot$|\.woff2$|\.mp3$/,
         use: [ 'file-loader?name=[name].[ext]' ],
       },
       {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              plugins: [ 'babel-plugin-transform-object-rest-spread' ],
-              presets: [ 'react', 'env' ],
-            },
-          },
-        ],
-      }
+        test: /.tsx?$/,
+        use: [ 'ts-loader' ],
+      },
     ]
   },
 
-  devServer: {
-    port: 3000,
+  serve: {
+    port: 5000,
   },
 };
