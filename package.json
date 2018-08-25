@@ -11,6 +11,8 @@
   "author": "Luis Chapman",
   "license": "ISC",
   "devDependencies": {
+    "@material-ui/core": "1.5.1",
+    "@material-ui/icons": "2.0.3",
     "bluebird": "^3.4.7",
     "electron": "2.0.8",
     "file-loader": "2.0.0",
