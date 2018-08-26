@@ -3,7 +3,6 @@ import AppBar from '@material-ui/core/AppBar/AppBar';
 import Button from '@material-ui/core/Button/Button';
 import TextField from '@material-ui/core/TextField/TextField';
 import Toolbar from '@material-ui/core/Toolbar/Toolbar';
-import Typography from '@material-ui/core/Typography/Typography';
 import blue from '@material-ui/core/es/colors/blue';
 import red from '@material-ui/core/colors/red';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -36,7 +35,6 @@ export class App extends React.Component<Props> {
     return <div style={styles.container}>
       <AppBar style={styles.appBar}>
         <Toolbar id='draggable' style={styles.toolbar}>
-          <Typography style={{ flex: 1 }} variant='title'>ClockWise</Typography>
           <Button id='nondrag' style={{ ...styles.button, fontSize: 20 }}>-</Button>
           <Button id='nondrag' style={{ ...styles.button, color: red['500'] }}>x</Button>
         </Toolbar>
@@ -108,15 +106,13 @@ const styles = {
     width: '80%',
   },
 
-  title: {
-    color: 'black',
-  },
-
   toolbar: {
     display: 'flex',
     flexDirection: 'row',
-    height: '2rem',
+    height: '1.5rem',
+    justifyContent: 'flex-end',
     minHeight: 0,
+    padding: '0.25rem 0',
   },
 } as { [s: string]: React.CSSProperties };
 
