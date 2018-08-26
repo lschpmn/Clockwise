@@ -1,6 +1,6 @@
 import * as React from 'react';
 import AppBar from '@material-ui/core/AppBar/AppBar';
-import FlatButton from 'material-ui/FlatButton';
+import Button from '@material-ui/core/Button/Button';
 import TextField from '@material-ui/core/TextField/TextField';
 import Toolbar from '@material-ui/core/Toolbar/Toolbar';
 import Typography from '@material-ui/core/Typography/Typography';
@@ -22,8 +22,8 @@ export class App extends React.Component<Props> {
       <AppBar style={styles.appBar}>
         <Toolbar id='draggable' style={styles.toolbar}>
           <Typography style={{ flex: 1 }} variant='title'>ClockWise</Typography>
-          <FlatButton id='nondrag' style={{ ...styles.button, fontSize: 20 }}>-</FlatButton>
-          <FlatButton id='nondrag' style={{ ...styles.button, color: red['500'] }} rippleColor={red['500']}>x</FlatButton>
+          <Button id='nondrag' style={{ ...styles.button, fontSize: 20 }}>-</Button>
+          <Button id='nondrag' style={{ ...styles.button, color: red['500'] }}>x</Button>
         </Toolbar>
       </AppBar>
 
