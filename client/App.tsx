@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button/Button';
 import Pause from '@material-ui/icons/Pause';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import red from '@material-ui/core/colors/red';
-import Replay from '@material-ui/icons/Replay';
+import Stop from '@material-ui/icons/Stop';
 import TextField from '@material-ui/core/TextField/TextField';
 import Toolbar from '@material-ui/core/Toolbar/Toolbar';
 import VolumeMute from '@material-ui/icons/VolumeMute';
@@ -121,8 +121,8 @@ export class App extends React.Component<Props, State> {
 
       <div style={styles.bottom}>
         <div style={{ display: 'flex' }}>
-          <Button style={styles.button}>
-            <Replay/>
+          <Button style={styles.button} onClick={() => this.setState({ duration: 0 })}>
+            <Stop/>
           </Button>
 
           <Button style={styles.button} onClick={this.togglePlaying}>
