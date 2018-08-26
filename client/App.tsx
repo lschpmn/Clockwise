@@ -1,15 +1,14 @@
 import * as React from 'react';
 import AppBar from '@material-ui/core/AppBar/AppBar';
+import blue from '@material-ui/core/es/colors/blue';
 import Button from '@material-ui/core/Button/Button';
+import PlayArrow from '@material-ui/icons/PlayArrow';
+import red from '@material-ui/core/colors/red';
+import Replay from '@material-ui/icons/Replay';
 import TextField from '@material-ui/core/TextField/TextField';
 import Toolbar from '@material-ui/core/Toolbar/Toolbar';
-import blue from '@material-ui/core/es/colors/blue';
-import red from '@material-ui/core/colors/red';
-import withStyles from '@material-ui/core/styles/withStyles';
-import PlayArrow from '@material-ui/icons/PlayArrow';
-import Replay from '@material-ui/icons/Replay';
-import VolumeMute from '@material-ui/icons/VolumeMute';
 import VolumeUp from '@material-ui/icons/VolumeUp';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 type Props = {
   classes: {
