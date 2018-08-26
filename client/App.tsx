@@ -18,6 +18,21 @@ export class App extends React.Component<Props> {
   render() {
     const { classes } = this.props;
 
+    const inputProps = {
+      classes: {
+        underline: classes.underline
+      },
+      style: {
+        color: 'white'
+      },
+    };
+
+    const inputLabelProps = {
+      style: {
+        color: 'white'
+      },
+    };
+
     return <div style={styles.container}>
       <AppBar style={styles.appBar}>
         <Toolbar id='draggable' style={styles.toolbar}>
@@ -28,11 +43,10 @@ export class App extends React.Component<Props> {
       </AppBar>
 
       <div style={styles.bottom}>
-        <div style={{ flex: 1 }}/>
         <TextField
           fullWidth
-          InputLabelProps={{ style: { color: 'white' } }}
-          InputProps={{ classes: { underline: classes.underline }, style: { color: 'white' } }}
+          InputLabelProps={inputLabelProps}
+          InputProps={inputProps}
           label='Time'
           style={styles.input}
         />
@@ -65,6 +79,7 @@ const styles = {
     bottom: 0,
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'flex-end',
     left: 0,
     position: 'fixed',
     right: 0,
