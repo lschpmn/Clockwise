@@ -6,6 +6,10 @@ import Toolbar from '@material-ui/core/Toolbar/Toolbar';
 import blue from '@material-ui/core/es/colors/blue';
 import red from '@material-ui/core/colors/red';
 import withStyles from '@material-ui/core/styles/withStyles';
+import PlayArrow from '@material-ui/icons/PlayArrow';
+import Replay from '@material-ui/icons/Replay';
+import VolumeMute from '@material-ui/icons/VolumeMute';
+import VolumeUp from '@material-ui/icons/VolumeUp';
 
 type Props = {
   classes: {
@@ -33,14 +37,19 @@ export class App extends React.Component<Props> {
     };
 
     return <div style={styles.container}>
-      <AppBar style={styles.appBar}>
+      <AppBar style={styles.appBar} position='static'>
         <Toolbar id='draggable' style={styles.toolbar}>
-          <Button id='nondrag' style={{ ...styles.button, fontSize: 20 }}>-</Button>
-          <Button id='nondrag' style={{ ...styles.button, color: red['500'] }}>x</Button>
+          <Button id='nondrag' style={{ ...styles.menuButton, fontSize: 20 }}>-</Button>
+          <Button id='nondrag' style={{ ...styles.menuButton, color: red['500'] }}>x</Button>
         </Toolbar>
       </AppBar>
 
       <div style={styles.bottom}>
+        <div style={{ display: 'flex' }}>
+          <Button style={styles.button}><Replay/></Button>
+          <Button style={styles.button}><PlayArrow/></Button>
+          <Button style={styles.button}><VolumeUp/></Button>
+        </div>
         <TextField
           fullWidth
           InputLabelProps={inputLabelProps}
@@ -72,24 +81,15 @@ const styles = {
     backgroundColor: 'white',
     color: 'black',
   },
-
   bottom: {
-    bottom: 0,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    left: 0,
-    position: 'fixed',
-    right: 0,
-    top: 0,
   },
-
   button: {
-    margin: 0,
-    padding: 0,
-    minWidth: '3rem',
+    color: 'white',
+    flex: 1,
   },
-
   container: {
     backgroundColor: blue['500'],
     bottom: 0,
@@ -98,14 +98,17 @@ const styles = {
     right: 0,
     top: 0,
   },
-
   input: {
     color: 'white',
     display: 'block',
-    margin: '1rem auto',
+    margin: '0 auto',
     width: '80%',
   },
-
+  menuButton: {
+    margin: 0,
+    padding: 0,
+    minWidth: '3rem',
+  },
   toolbar: {
     display: 'flex',
     flexDirection: 'row',
