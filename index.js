@@ -1,7 +1,7 @@
 'use strict';
 
 const http = require('http');
-const path = require('path');
+const { join } = require('path');
 const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
@@ -14,8 +14,8 @@ app.on('window-all-closed', function() {
 });
 
 app.on('ready', function() {
-  const indexPath = path.join(__dirname, 'public/index.html');
-  const host = process.env.host;
+  const indexPath = join(__dirname, 'public/index.html');
+  const { host } = process.env;
   
   // Create the browser window.
   mainWindow = new BrowserWindow({
@@ -27,7 +27,7 @@ app.on('ready', function() {
     frame: false
   });
   
-  mainWindow.loadURL(host == null ? indexPath : host);
+  mainWindow.loadURL(host || indexPath);
   
   // Open the DevTools.
   if(host) mainWindow.webContents.openDevTools();
