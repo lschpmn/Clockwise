@@ -1,5 +1,6 @@
 import * as React from 'react';
 import parse = require('parse-duration');
+import prettyMs = require('pretty-ms');
 import AppBar from '@material-ui/core/AppBar/AppBar';
 import blue from '@material-ui/core/es/colors/blue';
 import Button from '@material-ui/core/Button/Button';
@@ -39,6 +40,13 @@ export class App extends React.Component<Props, State> {
     startTime: null,
   };
 
+  getLabel = () => {
+    const { duration } = this.state;
+    if (duration > 1000) return prettyMs(duration, { secDecimalDigits: 0 });
+    else if (duration > 0) return '0s';
+    else return 'Time';
+  };
+
   onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     this.setState({
@@ -69,10 +77,11 @@ export class App extends React.Component<Props, State> {
     const duration = this.state.duration - (now - this.state.startTime);
 
     if (duration > 0) {
-      this.tickId = +setTimeout(this.tick, 500);
+      this.tickId = +setTimeout(this.tick, 250);
       this.setState({ duration, startTime: now });
     } else {
       this.setState({
+        duration: 0,
         isPlaying: false,
       });
     }
@@ -129,7 +138,7 @@ export class App extends React.Component<Props, State> {
             fullWidth
             InputLabelProps={inputLabelProps}
             InputProps={inputProps}
-            label={this.state.isPlaying ? this.state.duration : 'Time'}
+            label={this.getLabel()}
             onChange={e => this.setState({ input: e.target.value })}
             inputRef={ref => this.textInput = ref}
             style={styles.input}

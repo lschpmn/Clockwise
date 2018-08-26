@@ -17,6 +17,7 @@
     "electron": "2.0.8",
     "file-loader": "2.0.0",
     "parse-duration": "~0.1.1",
+    "pretty-ms": "3.2.0",
     "react": "16.4.2",
     "react-dom": "16.4.2",
     "react-tap-event-plugin": "3.0.3",
