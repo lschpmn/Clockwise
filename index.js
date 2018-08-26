@@ -35,7 +35,7 @@ app.on('ready', function() {
   //server listening to front-end
   //using this, instead of built in electron way because of issues with webpack+electron
   const server = http.createServer();
-  server.listen(5000);
+  server.listen(3000);
   
   server.on('request', (req, res) => {
     if(req.url === '/close') {
