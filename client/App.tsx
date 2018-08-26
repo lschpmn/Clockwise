@@ -24,16 +24,19 @@ type State = {
   input: string,
   isMuted: boolean,
   isPlaying: boolean,
+  startTime?: number,
 };
 
 export class App extends React.Component<Props, State> {
   textInput: any;
+  tickId: number;
 
   state = {
     duration: 0,
     input: '',
     isMuted: false,
     isPlaying: false,
+    startTime: null,
   };
 
   onSubmit = (e: React.SyntheticEvent) => {
@@ -41,13 +44,43 @@ export class App extends React.Component<Props, State> {
     this.setState({
       duration: parse(this.state.input),
       input: '',
-    });
+    }, () => this.play());
     this.textInput.blur();
+  };
+
+  pause() {
+    const duration = this.state.duration - (Date.now() - this.state.startTime);
+    clearTimeout(this.tickId);
+    this.setState({
+      duration,
+      isPlaying: false,
+    });
+  }
+
+  play() {
+    this.setState({
+      isPlaying: true,
+      startTime: Date.now(),
+    }, this.tick);
+  }
+
+  tick = () => {
+    const now = Date.now();
+    const duration = this.state.duration - (now - this.state.startTime);
+
+    if (duration > 0) {
+      this.tickId = +setTimeout(this.tick, 500);
+      this.setState({ duration, startTime: now });
+    } else {
+      this.setState({
+        isPlaying: false,
+      });
+    }
   };
 
   toggleMute = () => this.setState({ isMuted: !this.state.isMuted });
 
-  togglePlaying = () => this.setState({ isPlaying: !this.state.isPlaying });
+  togglePlaying = () => this.state.isPlaying ? this.pause() : this.play();
 
   render() {
     const { classes } = this.props;
@@ -66,6 +99,8 @@ export class App extends React.Component<Props, State> {
         color: 'white'
       },
     };
+
+    console.log(this.state);
 
     return <div style={styles.container}>
       <AppBar style={styles.appBar} position='static'>
@@ -94,7 +129,7 @@ export class App extends React.Component<Props, State> {
             fullWidth
             InputLabelProps={inputLabelProps}
             InputProps={inputProps}
-            label='Time'
+            label={this.state.isPlaying ? this.state.duration : 'Time'}
             onChange={e => this.setState({ input: e.target.value })}
             inputRef={ref => this.textInput = ref}
             style={styles.input}
