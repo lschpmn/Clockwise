@@ -77,10 +77,14 @@ export class App extends React.Component<Props, State> {
 
       <div style={styles.bottom}>
         <div style={{ display: 'flex' }}>
-          <Button style={styles.button}><Replay/></Button>
+          <Button style={styles.button}>
+            <Replay/>
+          </Button>
+
           <Button style={styles.button} onClick={this.togglePlaying}>
             {this.state.isPlaying ? <Pause/> : <PlayArrow/>}
           </Button>
+
           <Button style={styles.button} onClick={this.toggleMute}>
             {this.state.isMuted ? <VolumeMute/> : <VolumeUp/>}
           </Button>
