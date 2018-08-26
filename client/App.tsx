@@ -1,4 +1,5 @@
 import * as React from 'react';
+import parse = require('parse-duration');
 import AppBar from '@material-ui/core/AppBar/AppBar';
 import blue from '@material-ui/core/es/colors/blue';
 import Button from '@material-ui/core/Button/Button';
@@ -16,7 +17,27 @@ type Props = {
   },
 };
 
-export class App extends React.Component<Props> {
+type State = {
+  duration: number,
+  input: string,
+};
+
+export class App extends React.Component<Props, State> {
+  textInput: any;
+  state = {
+    duration: 0,
+    input: '',
+  };
+
+  onSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    this.setState({
+      duration: parse(this.state.input),
+      input: '',
+    });
+    this.textInput.blur();
+  };
+
   render() {
     const { classes } = this.props;
 
@@ -49,13 +70,18 @@ export class App extends React.Component<Props> {
           <Button style={styles.button}><PlayArrow/></Button>
           <Button style={styles.button}><VolumeUp/></Button>
         </div>
-        <TextField
-          fullWidth
-          InputLabelProps={inputLabelProps}
-          InputProps={inputProps}
-          label='Time'
-          style={styles.input}
-        />
+        <form onSubmit={this.onSubmit}>
+          <TextField
+            fullWidth
+            InputLabelProps={inputLabelProps}
+            InputProps={inputProps}
+            label='Time'
+            onChange={e => this.setState({ input: e.target.value })}
+            inputRef={ref => this.textInput = ref}
+            style={styles.input}
+            value={this.state.input}
+          />
+        </form>
       </div>
     </div>;
   }
