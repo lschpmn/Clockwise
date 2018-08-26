@@ -3,11 +3,13 @@ import parse = require('parse-duration');
 import AppBar from '@material-ui/core/AppBar/AppBar';
 import blue from '@material-ui/core/es/colors/blue';
 import Button from '@material-ui/core/Button/Button';
+import Pause from '@material-ui/icons/Pause';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import red from '@material-ui/core/colors/red';
 import Replay from '@material-ui/icons/Replay';
 import TextField from '@material-ui/core/TextField/TextField';
 import Toolbar from '@material-ui/core/Toolbar/Toolbar';
+import VolumeMute from '@material-ui/icons/VolumeMute';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -20,13 +22,18 @@ type Props = {
 type State = {
   duration: number,
   input: string,
+  isMuted: boolean,
+  isPlaying: boolean,
 };
 
 export class App extends React.Component<Props, State> {
   textInput: any;
+
   state = {
     duration: 0,
     input: '',
+    isMuted: false,
+    isPlaying: false,
   };
 
   onSubmit = (e: React.SyntheticEvent) => {
@@ -37,6 +44,10 @@ export class App extends React.Component<Props, State> {
     });
     this.textInput.blur();
   };
+
+  toggleMute = () => this.setState({ isMuted: !this.state.isMuted });
+
+  togglePlaying = () => this.setState({ isPlaying: !this.state.isPlaying });
 
   render() {
     const { classes } = this.props;
@@ -67,8 +78,12 @@ export class App extends React.Component<Props, State> {
       <div style={styles.bottom}>
         <div style={{ display: 'flex' }}>
           <Button style={styles.button}><Replay/></Button>
-          <Button style={styles.button}><PlayArrow/></Button>
-          <Button style={styles.button}><VolumeUp/></Button>
+          <Button style={styles.button} onClick={this.togglePlaying}>
+            {this.state.isPlaying ? <Pause/> : <PlayArrow/>}
+          </Button>
+          <Button style={styles.button} onClick={this.toggleMute}>
+            {this.state.isMuted ? <VolumeMute/> : <VolumeUp/>}
+          </Button>
         </div>
         <form onSubmit={this.onSubmit}>
           <TextField
