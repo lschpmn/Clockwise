@@ -42,7 +42,7 @@ export class App extends React.Component<Props, State> {
 
   getLabel = () => {
     const { duration } = this.state;
-    if (duration > 1000) return prettyMs(duration, { secDecimalDigits: 0 });
+    if (duration > 1000) return prettyMs(duration, { secDecimalDigits: 0, verbose: true });
     else if (duration > 0) return '0s';
     else return 'Time';
   };
