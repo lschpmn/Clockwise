@@ -13,6 +13,7 @@ import Toolbar from '@material-ui/core/Toolbar/Toolbar';
 import VolumeMute from '@material-ui/icons/VolumeMute';
 import VolumeUp from '@material-ui/icons/VolumeUp';
 import withStyles from '@material-ui/core/styles/withStyles';
+import AlarmModal from './components/AlarmModal';
 
 type Props = {
   classes: {
@@ -23,6 +24,7 @@ type Props = {
 type State = {
   duration: number,
   input: string,
+  isAlarming: boolean,
   isMuted: boolean,
   isPlaying: boolean,
   startTime?: number,
@@ -35,6 +37,7 @@ export class App extends React.Component<Props, State> {
   state = {
     duration: 0,
     input: '',
+    isAlarming: false,
     isMuted: false,
     isPlaying: false,
     startTime: null,
@@ -82,6 +85,7 @@ export class App extends React.Component<Props, State> {
     } else {
       this.setState({
         duration: 0,
+        isAlarming: true,
         isPlaying: false,
       });
     }
@@ -112,6 +116,7 @@ export class App extends React.Component<Props, State> {
     console.log(this.state);
 
     return <div style={styles.container}>
+      {this.state.isAlarming && <AlarmModal onAlarmDismiss={() => this.setState({ isAlarming: false })}/>}
       <AppBar style={styles.appBar} position='static'>
         <Toolbar id='draggable' style={styles.toolbar}>
           <Button id='nondrag' style={{ ...styles.menuButton, fontSize: 20 }}>-</Button>
