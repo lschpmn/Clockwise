@@ -13,24 +13,21 @@ type State = {
 };
 
 export default class AlarmModal extends React.Component<Props, State> {
-  timeoutId: number;
+  intervalId: number;
 
   state = {
     tick: false,
   };
 
+  tock = () => this.setState({ tick: !this.state.tick });
+
   componentDidMount() {
-    this.tock();
+    this.intervalId = +setInterval(this.tock, 500);
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeoutId);
+    clearInterval(this.intervalId);
   }
-
-  tock = () => {
-    this.setState({ tick: !this.state.tick });
-    this.timeoutId = +setTimeout(this.tock, 500);
-  };
 
   render() {
     return <div
