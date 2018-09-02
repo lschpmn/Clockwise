@@ -2,6 +2,7 @@ import * as React from 'react';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 import Alarm from '@material-ui/icons/Alarm';
+import '../sounds/tone.mp3';
 
 type Props = {
   onAlarmDismiss: () => void,
@@ -40,6 +41,7 @@ export default class AlarmModal extends React.Component<Props, State> {
       }}
     >
       <Alarm style={styles.icon} fontSize='inherit'/>
+      <audio src='./tone.mp3' autoPlay loop />
     </div>;
   }
 }
