@@ -75,6 +75,8 @@ export class App extends React.Component<Props, State> {
     }, this.tick);
   }
 
+  stopAlarm = () => this.setState({ isAlarming: false });
+
   tick = () => {
     const now = Date.now();
     const duration = this.state.duration - (now - this.state.startTime);
@@ -116,7 +118,8 @@ export class App extends React.Component<Props, State> {
     console.log(this.state);
 
     return <div style={styles.container}>
-      {this.state.isAlarming && <AlarmModal onAlarmDismiss={() => this.setState({ isAlarming: false })}/>}
+      {this.state.isAlarming && <AlarmModal onAlarmDismiss={this.stopAlarm}/>}
+
       <AppBar style={styles.appBar} position='static'>
         <Toolbar id='draggable' style={styles.toolbar}>
           <Button id='nondrag' style={{ ...styles.menuButton, fontSize: 20 }}>-</Button>
