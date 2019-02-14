@@ -5,6 +5,7 @@ import Alarm from '@material-ui/icons/Alarm';
 import '../sounds/tone.mp3';
 
 type Props = {
+  isMuted: boolean,
   onAlarmDismiss: () => void,
 };
 
@@ -30,15 +31,17 @@ export default class AlarmModal extends React.Component<Props, State> {
   }
 
   render() {
+    const { isMuted, onAlarmDismiss } = this.props;
+    const { tick } = this.state;
     return <div
-      onClick={this.props.onAlarmDismiss}
+      onClick={onAlarmDismiss}
       style={{
         ...styles.container,
-        backgroundColor: this.state.tick ? red['500'] : green['500'],
+        backgroundColor: tick ? red['500'] : green['500'],
       }}
     >
       <Alarm style={styles.icon} fontSize='inherit'/>
-      <audio src='./tone.mp3' autoPlay loop />
+      {!isMuted && <audio src='./tone.mp3' autoPlay loop />}
     </div>;
   }
 }
@@ -54,9 +57,9 @@ const styles = {
     right: 0,
     top: 0,
     zIndex: 1,
-  },
+  } as React.CSSProperties,
   icon: {
     color: 'white',
     fontSize: '6rem',
   },
-} as { [s: string]: React.CSSProperties };
+};

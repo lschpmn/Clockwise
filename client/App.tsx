@@ -27,6 +27,7 @@ type State = {
   isAlarming: boolean,
   isMuted: boolean,
   isPlaying: boolean,
+  originalDuration: number,
   startTime?: number,
 };
 
@@ -40,6 +41,7 @@ export class App extends React.Component<Props, State> {
     isAlarming: false,
     isMuted: false,
     isPlaying: false,
+    originalDuration: 0,
     startTime: null,
   };
 
@@ -52,8 +54,10 @@ export class App extends React.Component<Props, State> {
 
   onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    const duration = parse(this.state.input);
     this.setState({
-      duration: parse(this.state.input),
+      duration,
+      originalDuration: duration,
       input: '',
     }, () => this.play());
     this.textInput.blur();
@@ -74,6 +78,14 @@ export class App extends React.Component<Props, State> {
       startTime: Date.now(),
     }, this.tick);
   }
+
+  stop = () => {
+    clearTimeout(this.tickId);
+    this.setState({
+      isPlaying: false,
+      duration: this.state.originalDuration,
+    });
+  };
 
   stopAlarm = () => this.setState({ isAlarming: false });
 
@@ -99,6 +111,7 @@ export class App extends React.Component<Props, State> {
 
   render() {
     const { classes } = this.props;
+    const { isAlarming, isMuted, isPlaying, input } = this.state;
 
     const inputProps = {
       classes: {
@@ -118,7 +131,7 @@ export class App extends React.Component<Props, State> {
     console.log(this.state);
 
     return <div style={styles.container}>
-      {this.state.isAlarming && <AlarmModal onAlarmDismiss={this.stopAlarm}/>}
+      {isAlarming && <AlarmModal isMuted={isMuted} onAlarmDismiss={this.stopAlarm}/>}
 
       <AppBar style={styles.appBar} position='static'>
         <Toolbar id='draggable' style={styles.toolbar}>
@@ -129,16 +142,16 @@ export class App extends React.Component<Props, State> {
 
       <div style={styles.bottom}>
         <div style={{ display: 'flex' }}>
-          <Button style={styles.button} onClick={() => this.setState({ duration: 0 })}>
+          <Button style={styles.button} onClick={this.stop}>
             <Stop/>
           </Button>
 
           <Button style={styles.button} onClick={this.togglePlaying}>
-            {this.state.isPlaying ? <Pause/> : <PlayArrow/>}
+            {isPlaying ? <Pause/> : <PlayArrow/>}
           </Button>
 
           <Button style={styles.button} onClick={this.toggleMute}>
-            {this.state.isMuted ? <VolumeMute/> : <VolumeUp/>}
+            {isMuted ? <VolumeMute/> : <VolumeUp/>}
           </Button>
         </div>
         <form onSubmit={this.onSubmit}>
@@ -150,7 +163,7 @@ export class App extends React.Component<Props, State> {
             onChange={e => this.setState({ input: e.target.value })}
             inputRef={ref => this.textInput = ref}
             style={styles.input}
-            value={this.state.input}
+            value={input}
           />
         </form>
       </div>
@@ -181,7 +194,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
-  },
+  } as React.CSSProperties,
   button: {
     color: 'white',
     flex: 1,
@@ -193,7 +206,7 @@ const styles = {
     position: 'fixed',
     right: 0,
     top: 0,
-  },
+  } as React.CSSProperties,
   input: {
     color: 'white',
     display: 'block',
@@ -212,7 +225,7 @@ const styles = {
     justifyContent: 'flex-end',
     minHeight: 0,
     padding: '0.25rem 0',
-  },
-} as { [s: string]: React.CSSProperties };
+  } as React.CSSProperties,
+};
 
 export default withStyles(Classes)(App);
