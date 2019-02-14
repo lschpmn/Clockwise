@@ -1,19 +1,17 @@
-import * as React from 'react';
-import parse = require('parse-duration');
-import prettyMs = require('pretty-ms');
-import AppBar from '@material-ui/core/AppBar/AppBar';
-import blue from '@material-ui/core/es/colors/blue';
 import Button from '@material-ui/core/Button/Button';
+import blue from '@material-ui/core/es/colors/blue';
+import withStyles from '@material-ui/core/styles/withStyles';
+import TextField from '@material-ui/core/TextField/TextField';
 import Pause from '@material-ui/icons/Pause';
 import PlayArrow from '@material-ui/icons/PlayArrow';
-import red from '@material-ui/core/colors/red';
 import Stop from '@material-ui/icons/Stop';
-import TextField from '@material-ui/core/TextField/TextField';
-import Toolbar from '@material-ui/core/Toolbar/Toolbar';
 import VolumeMute from '@material-ui/icons/VolumeMute';
 import VolumeUp from '@material-ui/icons/VolumeUp';
-import withStyles from '@material-ui/core/styles/withStyles';
+import * as React from 'react';
 import AlarmModal from './components/AlarmModal';
+import TitleBar from './components/TitleBar';
+import parse = require('parse-duration');
+import prettyMs = require('pretty-ms');
 
 type Props = {
   classes: {
@@ -131,14 +129,7 @@ export class App extends React.Component<Props, State> {
     console.log(this.state);
 
     return <div style={styles.container}>
-      {isAlarming && <AlarmModal isMuted={isMuted} onAlarmDismiss={this.stopAlarm}/>}
-
-      <AppBar style={styles.appBar} position='static'>
-        <Toolbar id='draggable' style={styles.toolbar}>
-          <Button id='nondrag' style={{ ...styles.menuButton, fontSize: 20 }}>-</Button>
-          <Button id='nondrag' style={{ ...styles.menuButton, color: red['500'] }}>x</Button>
-        </Toolbar>
-      </AppBar>
+      <TitleBar />
 
       <div style={styles.bottom}>
         <div style={{ display: 'flex' }}>
@@ -167,6 +158,7 @@ export class App extends React.Component<Props, State> {
           />
         </form>
       </div>
+      {isAlarming && <AlarmModal isMuted={isMuted} onAlarmDismiss={this.stopAlarm}/>}
     </div>;
   }
 }
@@ -212,11 +204,6 @@ const styles = {
     display: 'block',
     margin: '0 auto',
     width: '80%',
-  },
-  menuButton: {
-    margin: 0,
-    padding: 0,
-    minWidth: '3rem',
   },
   toolbar: {
     display: 'flex',
