@@ -1,10 +1,7 @@
 'use strict';
 
-const http = require('http');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const { join } = require('path');
-const electron = require('electron');
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
 
 let mainWindow = null;
 
@@ -31,26 +28,16 @@ app.on('ready', function() {
   
   // Open the DevTools.
   if(host) mainWindow.webContents.openDevTools();
-  
-  //server listening to front-end
-  //using this, instead of built in electron way because of issues with webpack+electron
-  const server = http.createServer();
-  server.listen(3000);
-  
-  server.on('request', (req, res) => {
-    if(req.url === '/close') {
-      app.quit();
-    }
-    
-    if(req.url === '/minimize') {
-      mainWindow.minimize();
-    }
-    
-    if(req.url === '/alarm') {
-      if(mainWindow.isMinimized()) mainWindow.show();
-    }
-    
-    res.setHeader('Access-Control-Allow-Origin','*');
-    res.end();
+
+  ipcMain.on('alarm', () => {
+    mainWindow.show();
+  });
+
+  ipcMain.on('close', () => {
+    app.quit();
+  });
+
+  ipcMain.on('minimize', () => {
+    mainWindow.minimize();
   });
 });

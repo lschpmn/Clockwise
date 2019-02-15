@@ -4,16 +4,19 @@ import red from '@material-ui/core/colors/red';
 import Toolbar from '@material-ui/core/Toolbar/Toolbar';
 import Clear from '@material-ui/icons/Clear';
 import Remove from '@material-ui/icons/Remove';
+import { ipcRenderer } from 'electron';
 import * as React from 'react';
 
+const close = () => ipcRenderer.send('close');
+const minimize = () => ipcRenderer.send('minimize');
 
 const TitleBar = () => (
   <AppBar style={styles.appBar} position='static'>
     <Toolbar id='draggable' style={styles.toolbar}>
-      <Button id='nondrag'>
+      <Button id='nondrag' onClick={minimize}>
         <Remove />
       </Button>
-      <Button id='nondrag' style={{ color: red['500'] }}>
+      <Button id='nondrag' style={{ color: red['500'] }} onClick={close}>
         <Clear />
       </Button>
     </Toolbar>

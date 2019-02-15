@@ -18,6 +18,8 @@ module.exports = {
     filename: 'dep.js'
   },
 
+  target: 'electron-renderer',
+
   module: {
     rules: [
       {

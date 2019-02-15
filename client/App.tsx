@@ -7,6 +7,7 @@ import PlayArrow from '@material-ui/icons/PlayArrow';
 import Stop from '@material-ui/icons/Stop';
 import VolumeMute from '@material-ui/icons/VolumeMute';
 import VolumeUp from '@material-ui/icons/VolumeUp';
+import { ipcRenderer } from 'electron';
 import * as React from 'react';
 import AlarmModal from './components/AlarmModal';
 import TitleBar from './components/TitleBar';
@@ -50,8 +51,8 @@ export class App extends React.Component<Props, State> {
     else return 'Time';
   };
 
-  onSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault();
+  onSubmit = (e?: React.SyntheticEvent) => {
+    if (e) e.preventDefault();
     const duration = parse(this.state.input);
     this.setState({
       duration,
@@ -71,6 +72,7 @@ export class App extends React.Component<Props, State> {
   }
 
   play() {
+    if (this.state.input) return this.onSubmit();
     this.setState({
       isPlaying: true,
       startTime: Date.now(),
@@ -95,6 +97,7 @@ export class App extends React.Component<Props, State> {
       this.tickId = +setTimeout(this.tick, 250);
       this.setState({ duration, startTime: now });
     } else {
+      ipcRenderer.send('alarm');
       this.setState({
         duration: 0,
         isAlarming: true,
