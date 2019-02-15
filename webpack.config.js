@@ -31,7 +31,7 @@ module.exports = {
     ]
   },
 
-  serve: {
+  devServer: {
     port: 5000,
   },
 };
